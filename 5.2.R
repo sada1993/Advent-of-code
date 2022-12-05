@@ -41,9 +41,13 @@ for(i in 1:nrow(inst)){
   from <- instruction[2]
   to <- instruction[3]
   
+  staging_lst <- list()
   for(j in 1:n_containers_to_move){
-    container <- pop(containers[[from]])
-    push( containers[[to]], container)
+    staging_lst[[j]] <- pop(containers[[from]])
+  }
+  
+  for(j in 1:length(staging_lst)){
+    push(containers[[to]], staging_lst[[length(staging_lst) - (j-1)]])
   }
 }
 
