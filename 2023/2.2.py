@@ -21,8 +21,7 @@ def parse_set(set):
 sum = 0
 with open(relative_path, 'r') as file:
     for line in file:
-        games = re.split(r'[:;]', line)
-        games = games[1:]
+        games = re.split(r'[:;]', line)[1:]
         games = [parse_set(game) for game in games]
         reds = max([set[0] for set in games])
         green = max([set[1] for set in games])

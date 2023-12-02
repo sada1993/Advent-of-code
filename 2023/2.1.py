@@ -27,8 +27,7 @@ sum = 0
 with open(relative_path, 'r') as file:
     for line in file:
         row += 1
-        games = re.split(r'[:;]', line)
-        games = games[1:]
+        games = re.split(r'[:;]', line)[1:]
         games = [parse_set(game) for game in games]
         games_possible = [set[0] <= RED_TOTAL and set[1] <= GREEN_TOTAL and set[2] <= BLUE_TOTAL for set in games]
         games_possible = games_possible.count(False)
