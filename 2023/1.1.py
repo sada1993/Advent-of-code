@@ -3,7 +3,7 @@ import re
 
 script_dir = os.path.dirname(__file__)
 
-relative_path = os.path.join(script_dir, '2023', 'inputs', '1.1.txt')
+relative_path = os.path.join(script_dir, 'inputs', '1.txt')
 
 sum = 0
 with open(relative_path, 'r') as file:
