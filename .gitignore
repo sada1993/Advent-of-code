@@ -5,3 +5,4 @@
 inputs/
 .DS_Store
 *.Rproj
+*/test.py
