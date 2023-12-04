@@ -16,7 +16,7 @@ with open(relative_path, 'r') as file:
         my_numbers = re.sub(r' +', ' ', my_numbers).split(' ')
 
         points = 0
-        for i, number in enumerate(my_numbers):
+        for number in my_numbers:
             if number in winning_numbers:
                 if points == 0:
                     points = 1
