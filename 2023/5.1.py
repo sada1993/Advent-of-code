@@ -5,28 +5,28 @@ script_dir = os.path.dirname(__file__)
 
 relative_path = os.path.join(script_dir, 'inputs', '5.txt')
 
-def create_map(map, mapping_vec):
-    for i in range(mapping_vec[2]):
-        map[mapping_vec[1] + i] = mapping_vec[0] + i
-
-def do_mapping(input_vec, map):
+def do_mapping(input_vec, map_array):
     output_vec = []
-    for i in input_vec:
-        if i in map:
-            output_vec.append(map[i])
-        else:
-            output_vec.append(i)
+    for i, num in enumerate(input_vec):
+        for map in map_array:
+            if(num >= map[1] and num < map[1] + map[2]):
+                output_vec.append(map[0] + (num - map[1]))
+        
+        if len(output_vec) != i+1:
+            output_vec.append(num)
+
     return output_vec
 
 
 input_vec = []
 map_array = []
 map_flag = False
-map = {}
 
 counter = 0
 with open(relative_path, 'r') as file:
     for line in file:
+        print(counter)
+        counter += 1
         if(re.search('seeds', line) != None):
             input_vec = re.findall(r'(\d+)', line)
             input_vec = [int(i) for i in input_vec]
@@ -35,15 +35,15 @@ with open(relative_path, 'r') as file:
             mapping_vec = [int(i) for i in mapping_vec]
             if(len(mapping_vec) != 0):
                 #print("mapping_vec:", mapping_vec)
-                create_map(map, mapping_vec)
+                map_array.append(mapping_vec)
+                #print("map_array:", map_array)
             else:
-                input_vec = do_mapping(input_vec, map)
-                map = {}
+                input_vec = do_mapping(input_vec, map_array)
+                map_array = []
                 map_flag = False 
-                #print("post mapping input_vec:", input_vec)
-            #print(map)
+                print("post mapping input_vec:", input_vec)
         if(re.search('map', line) != None):
             map_flag = True     
 
-input_vec = do_mapping(input_vec, map)
+input_vec = do_mapping(input_vec, map_array)
 print('Answer: ', min(input_vec))
